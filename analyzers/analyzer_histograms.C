@@ -184,17 +184,19 @@ Bool_t analyzer_histograms::initEleHistograms( TString uncbin ){
    hist_file_out[i]->cd();
    //deleteEleHistograms(i);
    
-   TString hname_AOD_nEle                    = "h_"+selbinnames[i]+"_AOD_nEle"        +uncbin; 
-   TString hname_AOD_nSelectedEle            = "h_"+selbinnames[i]+"_AOD_nSelectedEle"+uncbin;
-   TString hname_AOD_elePt                   = "h_"+selbinnames[i]+"_AOD_elePt"       +uncbin; 
-   TString hname_AOD_eleEn                   = "h_"+selbinnames[i]+"_AOD_eleEn"       +uncbin; 
-   TString hname_AOD_eleEta                  = "h_"+selbinnames[i]+"_AOD_eleEta"      +uncbin; 
-   TString hname_AOD_elePhi                  = "h_"+selbinnames[i]+"_AOD_elePhi"      +uncbin; 
-   TString hname_AOD_eleCharge               = "h_"+selbinnames[i]+"_AOD_eleCharge"   +uncbin; 
+   TString hname_AOD_nEle                    = "h_"+selbinnames[i]+"_AOD_nEle"             +uncbin; 
+   TString hname_AOD_nSelectedEle            = "h_"+selbinnames[i]+"_AOD_nSelectedEle"     +uncbin;
+   TString hname_AOD_elePt                   = "h_"+selbinnames[i]+"_AOD_elePt"            +uncbin; 
+   TString hname_AOD_elePt_subLeadEle        = "h_"+selbinnames[i]+"_AOD_elePt_subLeadEle" +uncbin; 
+   TString hname_AOD_eleEn                   = "h_"+selbinnames[i]+"_AOD_eleEn"            +uncbin; 
+   TString hname_AOD_eleEta                  = "h_"+selbinnames[i]+"_AOD_eleEta"           +uncbin; 
+   TString hname_AOD_elePhi                  = "h_"+selbinnames[i]+"_AOD_elePhi"           +uncbin; 
+   TString hname_AOD_eleCharge               = "h_"+selbinnames[i]+"_AOD_eleCharge"        +uncbin; 
    
    h_AOD_nEle                     [i]= initSingleHistogramTH1F( hname_AOD_nEle                    , "AOD_nEle                   ", 6,  0, 6) ;  
    h_AOD_nSelectedEle             [i]= initSingleHistogramTH1F( hname_AOD_nSelectedEle            , "AOD_nSelectedEle           ", 10,0,10);
    h_AOD_elePt                    [i]= initSingleHistogramTH1F( hname_AOD_elePt                   , "AOD_elePt                  ", 50, 0, 500) ;  
+   h_AOD_elePt_subLeadEle         [i]= initSingleHistogramTH1F( hname_AOD_elePt_subLeadEle        , "AOD_elePt_subLeadEle       ", 50, 0, 500) ;  
    h_AOD_eleEn                    [i]= initSingleHistogramTH1F( hname_AOD_eleEn                   , "AOD_eleEn                  ", 50, 0, 500) ;  
    h_AOD_eleEta                   [i]= initSingleHistogramTH1F( hname_AOD_eleEta                  , "AOD_eleEta                 ", 30, -5, 5); 
    h_AOD_elePhi                   [i]= initSingleHistogramTH1F( hname_AOD_elePhi                  , "AOD_elePhi                 ", 30, -5, 5); 
@@ -215,6 +217,7 @@ Bool_t analyzer_histograms::fillEleHistograms(Float_t weight, int selbin )
   // fill leading electron in vector
   if(electron_list.size() > 0){
    int eleindex = electron_list[0];
+   if( electron_list.size() > 1 ) h_AOD_elePt_subLeadEle[selbin] ->Fill( Shifted_elePt .at(electron_list[1]), weight );  
    h_AOD_elePt               [selbin] ->Fill( Shifted_elePt            .at(eleindex), weight );  
    h_AOD_eleEn               [selbin] ->Fill( AOD_eleEn               ->at(eleindex), weight );  
    h_AOD_eleEta              [selbin] ->Fill( AOD_eleEta              ->at(eleindex), weight );  
@@ -232,6 +235,7 @@ Bool_t analyzer_histograms::writeEleHistograms(int selbin)
   h_AOD_nEle            [selbin] ->Write();
   h_AOD_nSelectedEle    [selbin] ->Write();
   h_AOD_elePt           [selbin] ->Write();
+  h_AOD_elePt_subLeadEle[selbin] ->Write();
   h_AOD_eleEn           [selbin] ->Write();
   h_AOD_eleEta          [selbin] ->Write();
   h_AOD_elePhi          [selbin] ->Write();
@@ -247,6 +251,7 @@ Bool_t analyzer_histograms::deleteEleHistograms(int selbin)
   if(h_AOD_nEle[selbin]!=NULL)            h_AOD_nEle            [selbin] ->Delete();
   if(h_AOD_nSelectedEle[selbin]!=NULL)    h_AOD_nSelectedEle    [selbin] ->Delete();
   if(h_AOD_elePt[selbin]!=NULL)           h_AOD_elePt           [selbin] ->Delete();
+  if(h_AOD_elePt_subLeadEle[selbin]!=NULL)h_AOD_elePt_subLeadEle[selbin] ->Delete();
   if(h_AOD_eleEn[selbin]!=NULL)           h_AOD_eleEn           [selbin] ->Delete();
   if(h_AOD_eleEta[selbin]!=NULL)          h_AOD_eleEta          [selbin] ->Delete();
   if(h_AOD_elePhi[selbin]!=NULL)          h_AOD_elePhi          [selbin] ->Delete();
@@ -264,6 +269,7 @@ Bool_t analyzer_histograms::initMuHistograms( TString uncbin ){
   TString hname_AOD_nMu                     = "h_"+selbinnames[i]+"_AOD_nMu"                +uncbin; 
   TString hname_AOD_nSelectedMu             = "h_"+selbinnames[i]+"_AOD_nSelectedMu"        +uncbin;
   TString hname_AOD_muPt                    = "h_"+selbinnames[i]+"_AOD_muPt"               +uncbin; 
+  TString hname_AOD_muPt_subLeadMu          = "h_"+selbinnames[i]+"_AOD_muPt_subLeadMu"     +uncbin; 
   TString hname_AOD_muEn                    = "h_"+selbinnames[i]+"_AOD_muEn"               +uncbin; 
   TString hname_AOD_muEta                   = "h_"+selbinnames[i]+"_AOD_muEta"              +uncbin; 
   TString hname_AOD_muPhi                   = "h_"+selbinnames[i]+"_AOD_muPhi"              +uncbin; 
@@ -273,6 +279,7 @@ Bool_t analyzer_histograms::initMuHistograms( TString uncbin ){
   h_AOD_nMu                      [i] = initSingleHistogramTH1F( hname_AOD_nMu                     , "AOD_nMu                    ", 6,  0, 6) ;  
   h_AOD_nSelectedMu              [i] = initSingleHistogramTH1F( hname_AOD_nSelectedMu             , "AOD_nSelectedMu            ", 10,0,10);
   h_AOD_muPt                     [i] = initSingleHistogramTH1F( hname_AOD_muPt                    , "AOD_muPt                   ", 50, 0, 500) ;  
+  h_AOD_muPt_subLeadMu           [i] = initSingleHistogramTH1F( hname_AOD_muPt_subLeadMu          , "AOD_muPt_subLeadMu         ", 50, 0, 500) ;  
   h_AOD_muEn                     [i] = initSingleHistogramTH1F( hname_AOD_muEn                    , "AOD_muEn                   ", 50, 0, 500) ;  
   h_AOD_muEta                    [i] = initSingleHistogramTH1F( hname_AOD_muEta                   , "AOD_muEta                  ", 30, -5, 5); 
   h_AOD_muPhi                    [i] = initSingleHistogramTH1F( hname_AOD_muPhi                   , "AOD_muPhi                  ", 30, -5, 5); 
@@ -292,6 +299,7 @@ Bool_t analyzer_histograms::fillMuHistograms(Float_t weight, int selbin)
   if(muon_list.size() > 0){
    int muindex = muon_list[0];
    h_AOD_muPt               [selbin]->Fill( Shifted_muPt            .at(muindex), weight );  
+   if( muon_list.size() > 1 ) h_AOD_muPt_subLeadMu               [selbin]->Fill( Shifted_muPt            .at(muon_list[1]), weight );  
    h_AOD_muEn               [selbin]->Fill( AOD_muEn               ->at(muindex), weight );  
    h_AOD_muEta              [selbin]->Fill( AOD_muEta              ->at(muindex), weight );  
    h_AOD_muPhi              [selbin]->Fill( AOD_muPhi              ->at(muindex), weight );  
@@ -304,10 +312,11 @@ Bool_t analyzer_histograms::fillMuHistograms(Float_t weight, int selbin)
 //----------------------------writeMuHistograms
 Bool_t analyzer_histograms::writeMuHistograms(int selbin)
 {
-  hist_file_out[selbin]->cd();
+ hist_file_out[selbin]->cd();
  h_AOD_nMu                     [selbin]->Write();
  h_AOD_nSelectedMu             [selbin]->Write();
  h_AOD_muPt                    [selbin]->Write();
+ h_AOD_muPt_subLeadMu          [selbin]->Write();
  h_AOD_muEn                    [selbin]->Write();
  h_AOD_muEta                   [selbin]->Write();
  h_AOD_muPhi                   [selbin]->Write(); 
@@ -324,6 +333,7 @@ Bool_t analyzer_histograms::deleteMuHistograms(int selbin)
   if(h_AOD_nMu[selbin]!=NULL)                 h_AOD_nMu                     [selbin]->Delete();
   if(h_AOD_nSelectedMu[selbin]!=NULL)         h_AOD_nSelectedMu             [selbin]->Delete();
   if(h_AOD_muPt[selbin]!=NULL)                h_AOD_muPt                    [selbin]->Delete();
+  if(h_AOD_muPt_subLeadMu[selbin]!=NULL)      h_AOD_muPt_subLeadMu          [selbin]->Delete();
   if(h_AOD_muEn[selbin]!=NULL)                h_AOD_muEn                    [selbin]->Delete();
   if(h_AOD_muEta[selbin]!=NULL)               h_AOD_muEta                   [selbin]->Delete();
   if(h_AOD_muPhi[selbin]!=NULL)               h_AOD_muPhi                   [selbin]->Delete(); 

@@ -269,6 +269,7 @@ public :
  TH1F*  h_AOD_nEle                     [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_nSelectedEle             [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_elePt                    [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_elePt_subLeadEle         [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleEn                    [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleEta                   [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_elePhi                   [SELBINNAMESIZE]; //;
@@ -278,6 +279,7 @@ public :
  TH1F*  h_AOD_nMu                     [SELBINNAMESIZE];
  TH1F*  h_AOD_nSelectedMu             [SELBINNAMESIZE];
  TH1F*  h_AOD_muPt                    [SELBINNAMESIZE];
+ TH1F*  h_AOD_muPt_subLeadMu          [SELBINNAMESIZE];
  TH1F*  h_AOD_muEn                    [SELBINNAMESIZE];
  TH1F*  h_AOD_muEta                   [SELBINNAMESIZE];
  TH1F*  h_AOD_muPhi                   [SELBINNAMESIZE];
