@@ -64,7 +64,7 @@ process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 
-process.GlobalTag.globaltag = '102X_mc2017_realistic_v7'#2017 GT for MC
+process.GlobalTag.globaltag = '102X_mc2017_realistic_v8'#2017 GT for MC 
 
 ## for AOD Photons
 #from PhysicsTools.SelectorUtils.tools.vid_id_tools import *

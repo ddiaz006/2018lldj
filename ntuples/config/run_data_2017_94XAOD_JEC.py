@@ -51,8 +51,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 #process.GlobalTag.globaltag = '102X_dataRun2_Sep2018ABC_v2'#not sure where this one came from
 
 
-process.GlobalTag.globaltag = '102X_dataRun2_v12'#2016-2018C
-#process.GlobalTag.globaltag = '102X_dataRun2_Prompt_v15'## 2018 - Run D
+process.GlobalTag.globaltag = '102X_dataRun2_v13'#2016-2018C
 ##from old config for 2016
 ###########################################################################################
 process.load( 'PhysicsTools.PatAlgos.producersLayer1.patCandidates_cff' )
