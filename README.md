@@ -21,22 +21,6 @@ cmsrel CMSSW_10_2_15;
 cd CMSSW_10_2_15/src;
 cmsenv;
 ```
-## CMSSW imports and customizations updated recipe 1 Sept. 2020
-```
-git cms-init
-git cms-merge-topic cms-egamma:PhotonIDValueMapSpeedup1029 #optional but speeds up the photon ID value module so things run faster
-scramv1 build -j 4;
-#now add in E/gamma Post reco tools
-git clone git@github.com:cms-egamma/EgammaPostRecoTools.git  EgammaUser/EgammaPostRecoTools
-cd  EgammaUser/EgammaPostRecoTools
-git checkout master
-cd -
-echo $CMSSW_BASE
-cd $CMSSW_BASE/src
-scram b -j 8
-```
-
-
 ## CMSSW imports and customizations
 
 ```
