@@ -64,7 +64,7 @@ process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 
-process.GlobalTag.globaltag = '102X_mc2017_realistic_v8'#2017 GT for MC 
+process.GlobalTag.globaltag = '102X_mc2017_realistic_v8'#2017 GT for MC
 
 ## for AOD Photons
 #from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
@@ -98,7 +98,8 @@ process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
 # pat for muons
 process.load('PhysicsTools.PatAlgos.patSequences_cff')
 
-from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+#from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+from EgammaUser.EgammaPostRecoTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
                        runVID=True,
                        era='2017-Nov17ReReco',
@@ -217,9 +218,9 @@ process.patCandidates.remove(process.patCandidateSummary)
 process.patCandidates.remove(process.selectedPatCandidateSummary)
 process.selectedPatCandidatesTask.remove(process.selectedPatTaus)
 process.selectedPatCandidatesTask.remove(process.patTaus)
-#process.patCandidatesTask.remove(process.makePatOOTPhotonsTask)
-#process.selectedPatCandidates.remove(process.selectedPatCandidateSummary)
-#process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
+process.patCandidatesTask.remove(process.makePatOOTPhotonsTask)
+process.selectedPatCandidates.remove(process.selectedPatCandidateSummary)
+process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
 #process.cleanPatCandidates.remove(process.cleanPatCandidateSummary)
 
 
