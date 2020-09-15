@@ -91,7 +91,6 @@ TFile *outfile_bkgest = 0;
   sum_AODGenEventWeight+=AODGenEventWeight;
   h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
   //h_sum_AOD0thnPU->Fill(AOD0thnPU);
-
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");

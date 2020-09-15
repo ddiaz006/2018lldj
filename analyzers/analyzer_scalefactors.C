@@ -21,7 +21,6 @@ Float_t analyzer_scalefactors::makeEventWeight(Float_t crossSec,
   event_weight=1.0;
   Float_t crossSecScl = crossSec;
   //if(isMC){ event_weight=lumi*crossSecScl/nrEvents; }
-  //if(isMC){ event_weight=lumi*crossSecScl*AODGenEventWeight*.7323/nrEvents; }
   if(isMC){ event_weight=lumi*crossSecScl*AODGenEventWeight/nrEvents; }
   //printf("isMC: %i lumi: %0.9f crossSec: %0.9f nrEvents: %0.9f",isMC,lumi,crossSecScl,nrEvents);
   //printf("  event_weight: %0.9f\n",event_weight);
@@ -34,19 +33,19 @@ Float_t analyzer_scalefactors::makePUWeight( TString dataset ){
  Int_t tmpbin;
  Float_t tmpweight;
  if( dataset.EqualTo("DoubleEG") ){
-  tmpbin    = PUWeights_DoubleEG->GetBin(AODnTruePU);
+  tmpbin    = PUWeights_DoubleEG->GetBin(AODnTruePU);//AOD0thnPU);
   tmpweight = PUWeights_DoubleEG->GetBinContent(tmpbin);
  }
  else if( dataset.EqualTo("DoubleMu") ){
-  tmpbin    = PUWeights_DoubleMu->GetBin(AODnTruePU);
+  tmpbin    = PUWeights_DoubleMu->GetBin(AODnTruePU);//AOD0thnPU);
   tmpweight = PUWeights_DoubleMu->GetBinContent(tmpbin);
  }
  else if( dataset.EqualTo("MuonEG") ){
-  tmpbin    = PUWeights_MuonEG->GetBin(AODnTruePU);
+  tmpbin    = PUWeights_MuonEG->GetBin(AODnTruePU);//AOD0thnPU);
   tmpweight = PUWeights_MuonEG->GetBinContent(tmpbin);
  }
  else if( dataset.EqualTo("SinglePhoton") ){
-  tmpbin    = PUWeights_SinglePhoton->GetBin(AODnTruePU);
+  tmpbin    = PUWeights_SinglePhoton->GetBin(AODnTruePU);//AOD0thnPU);
   tmpweight = PUWeights_SinglePhoton->GetBinContent(tmpbin);
  }
  //printf("making PU weight for %i , %i, %f \n", AODnTruePU,tmpbin,tmpweight);

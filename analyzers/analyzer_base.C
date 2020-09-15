@@ -56,11 +56,12 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    AODnGoodVtx = 0;
    AODnVtx = 0;
    AODnTruePU = 0;
-//   AOD0thnPU = 0;
+   AOD0thnPU = 0;
    ctauEventWeight = 1.;
    AODCaloJetPt = 0;
    AODCaloJetEta = 0;
    AODCaloJetPhi = 0;
+   AODCaloJetID = 0;
    AODCaloJetAlphaMax = 0;
    AODCaloJetAlphaMax2 = 0;
    AODCaloJetAlphaMaxPrime = 0;
@@ -75,9 +76,9 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    AODCaloJetLogTrackAngle = 0;
    AODCaloJetMedianLog10TrackAngle = 0;
    AODCaloJetTotalTrackAngle = 0;
-   AODCaloJetAvfVx = 0;
-   AODCaloJetAvfVy = 0;
-   AODCaloJetAvfVz = 0;
+   //AODCaloJetAvfVx = 0;
+   //AODCaloJetAvfVy = 0;
+   //AODCaloJetAvfVz = 0;
    AODCaloJetAvfVertexTotalChiSquared = 0;
    AODCaloJetAvfVertexDegreesOfFreedom = 0;
    AODCaloJetAvfVertexChi2NDoF = 0;
@@ -195,7 +196,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("lumis", &lumis, &b_lumis);
    fChain->SetBranchAddress("isData", &isData, &b_isData);
    fChain->SetBranchAddress("AODnTruePU", &AODnTruePU, &b_AODnTruePU);
-  // fChain->SetBranchAddress("AOD0thnPU", &AOD0thnPU, &b_AOD0thnPU);
+   fChain->SetBranchAddress("AOD0thnPU", &AOD0thnPU, &b_AOD0thnPU);
    fChain->SetBranchAddress("AODnVtx", &AODnVtx, &b_AODnVtx);
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
@@ -258,6 +259,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    else {fChain->SetBranchAddress("AODCaloJetPt", &AODCaloJetPt, &b_AODCaloJetPt);}
    fChain->SetBranchAddress("AODCaloJetEta", &AODCaloJetEta, &b_AODCaloJetEta);
    fChain->SetBranchAddress("AODCaloJetPhi", &AODCaloJetPhi, &b_AODCaloJetPhi);
+   fChain->SetBranchAddress("AODCaloJetID", &AODCaloJetID, &b_AODCaloJetID);
    fChain->SetBranchAddress("AODCaloJetAlphaMax", &AODCaloJetAlphaMax, &b_AODCaloJetAlphaMax);
    fChain->SetBranchAddress("AODCaloJetAlphaMax2", &AODCaloJetAlphaMax2, &b_AODCaloJetAlphaMax2);
    fChain->SetBranchAddress("AODCaloJetAlphaMaxPrime", &AODCaloJetAlphaMaxPrime, &b_AODCaloJetAlphaMaxPrime);
@@ -272,9 +274,9 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AODCaloJetLogTrackAngle", &AODCaloJetLogTrackAngle, &b_AODCaloJetLogTrackAngle);
    fChain->SetBranchAddress("AODCaloJetMedianLog10TrackAngle", &AODCaloJetMedianLog10TrackAngle, &b_AODCaloJetMedianLog10TrackAngle);
    fChain->SetBranchAddress("AODCaloJetTotalTrackAngle", &AODCaloJetTotalTrackAngle, &b_AODCaloJetTotalTrackAngle);
-   fChain->SetBranchAddress("AODCaloJetAvfVx", &AODCaloJetAvfVx, &b_AODCaloJetAvfVx);
-   fChain->SetBranchAddress("AODCaloJetAvfVy", &AODCaloJetAvfVy, &b_AODCaloJetAvfVy);
-   fChain->SetBranchAddress("AODCaloJetAvfVz", &AODCaloJetAvfVz, &b_AODCaloJetAvfVz);
+//   fChain->SetBranchAddress("AODCaloJetAvfVx", &AODCaloJetAvfVx, &b_AODCaloJetAvfVx);
+//   fChain->SetBranchAddress("AODCaloJetAvfVy", &AODCaloJetAvfVy, &b_AODCaloJetAvfVy);
+//   fChain->SetBranchAddress("AODCaloJetAvfVz", &AODCaloJetAvfVz, &b_AODCaloJetAvfVz);
    fChain->SetBranchAddress("AODCaloJetAvfVertexTotalChiSquared", &AODCaloJetAvfVertexTotalChiSquared, &b_AODCaloJetAvfVertexTotalChiSquared);
    fChain->SetBranchAddress("AODCaloJetAvfVertexDegreesOfFreedom", &AODCaloJetAvfVertexDegreesOfFreedom, &b_AODCaloJetAvfVertexDegreesOfFreedom);
    fChain->SetBranchAddress("AODCaloJetAvfVertexChi2NDoF", &AODCaloJetAvfVertexChi2NDoF, &b_AODCaloJetAvfVertexChi2NDoF);

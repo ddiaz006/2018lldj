@@ -42,7 +42,7 @@ public :
    Int_t           lumis;
    Bool_t          isData;
    Int_t           AODnTruePU;
-//   Int_t           AOD0thnPU;
+   Int_t           AOD0thnPU;
    Int_t           AODnVtx;
    Int_t           AODnGoodVtx;
    Int_t           AODnTrksPV;
@@ -102,6 +102,7 @@ public :
    std::vector<float>   *AODCaloJetPt;
    std::vector<float>   *AODCaloJetEta;
    std::vector<float>   *AODCaloJetPhi;
+   std::vector<float>   *AODCaloJetID;
    std::vector<float>   *AODCaloJetAlphaMax;
    std::vector<float>   *AODCaloJetAlphaMax2;
    std::vector<float>   *AODCaloJetAlphaMaxPrime;
@@ -116,9 +117,9 @@ public :
    std::vector<float>   *AODCaloJetLogTrackAngle;
    std::vector<float>   *AODCaloJetMedianLog10TrackAngle;
    std::vector<float>   *AODCaloJetTotalTrackAngle;
-   std::vector<float>   *AODCaloJetAvfVx;
-   std::vector<float>   *AODCaloJetAvfVy;
-   std::vector<float>   *AODCaloJetAvfVz;
+   //std::vector<float>   *AODCaloJetAvfVx;
+   //std::vector<float>   *AODCaloJetAvfVy;
+   //std::vector<float>   *AODCaloJetAvfVz;
    std::vector<float>   *AODCaloJetAvfVertexTotalChiSquared;
    std::vector<float>   *AODCaloJetAvfVertexDegreesOfFreedom;
    std::vector<float>   *AODCaloJetAvfVertexChi2NDoF;
@@ -243,7 +244,7 @@ public :
    TBranch        *b_lumis;   //!
    TBranch        *b_isData;   //!
    TBranch        *b_AODnTruePU;   //!
-   //TBranch        *b_AOD0thnPU;   //!
+   TBranch        *b_AOD0thnPU;   //!
    TBranch        *b_AODnVtx;   //!
    TBranch        *b_AODnGoodVtx;   //!
    TBranch        *b_AODnTrksPV;   //!
@@ -304,6 +305,7 @@ public :
    TBranch        *b_AODCaloJetPt;   //!
    TBranch        *b_AODCaloJetEta;   //!
    TBranch        *b_AODCaloJetPhi;   //!
+   TBranch        *b_AODCaloJetID;   //!
    TBranch        *b_AODCaloJetAlphaMax;   //!
    TBranch        *b_AODCaloJetAlphaMax2;   //!
    TBranch        *b_AODCaloJetAlphaMaxPrime;   //!
@@ -318,9 +320,9 @@ public :
    TBranch        *b_AODCaloJetLogTrackAngle;   //!
    TBranch        *b_AODCaloJetMedianLog10TrackAngle;   //!
    TBranch        *b_AODCaloJetTotalTrackAngle;   //!
-   TBranch        *b_AODCaloJetAvfVx;   //!
-   TBranch        *b_AODCaloJetAvfVy;   //!
-   TBranch        *b_AODCaloJetAvfVz;   //!
+   //TBranch        *b_AODCaloJetAvfVx;   //!
+   //TBranch        *b_AODCaloJetAvfVy;   //!
+   //TBranch        *b_AODCaloJetAvfVz;   //!
    TBranch        *b_AODCaloJetAvfVertexTotalChiSquared;   //!
    TBranch        *b_AODCaloJetAvfVertexDegreesOfFreedom;   //!
    TBranch        *b_AODCaloJetAvfVertexChi2NDoF;   //!

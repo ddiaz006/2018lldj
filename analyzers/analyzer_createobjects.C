@@ -47,18 +47,24 @@ std::vector<int> analyzer_createobjects::electron_passID( int bitnr, Float_t ele
 {
 
  std::vector<int> elelist;
+ std::vector<int> elelist_preSort;
  // veto loose medium tight heep hlt
+ //if(nAODEle>=5) std::cout<<"-----"<<nAODEle<<" Electrons -----"<<std::endl;
+ //Get List to Sort
+ for(int i = 0; i < nAODEle; i++) {elelist_preSort.push_back(i);} 
+ std::sort(elelist_preSort.begin(),elelist_preSort.end(),
+          [&]( int a, int b ) { return AOD_elePt->at(a) > AOD_elePt->at(b); });
 
- for(int i = 0; i < nAODEle; i++)
+ //Loop overSortedList
+ for(int j = 0; j < elelist_preSort.size(); j++)
  {
+ int i = elelist_preSort[j]; 
 
   Float_t electronPt = getElectronPt(i,sysbinname);
 
   bool pass_kin = false;
   if( i==0 ) pass_kin =  (electronPt > elePtCut1) && ( fabs(AOD_eleEta->at(i)) < eleEtaCut ) ;
   else       pass_kin =  (electronPt > elePtCut2) && ( fabs(AOD_eleEta->at(i)) < eleEtaCut ) ;
-
-
 
   bool pass_convsersion_veto = (AOD_elePassConversionVeto->at(i) > 0); //could have been bool
 
@@ -81,6 +87,8 @@ std::vector<int> analyzer_createobjects::electron_passID( int bitnr, Float_t ele
   //bool pass_iso = AOD_elePFdBetaIsolationDiff  ->at(i) <  [SELBINNAMESIZE][LEPBINNAMESIZE];
 
   bool pass_crack = (fabs(AOD_eleEta->at(i))<1.442) ||  (fabs(AOD_eleEta->at(i))>1.566);
+  //bool pass_cuts = (pass_bit && pass_kin && pass_overlap && pass_convsersion_veto && pass_crack);
+  //if(nAODEle>=5) std::cout<<"Electron Pt: "<<electronPt<<"  pass_Cuts?:  "<< pass_cuts <<std::endl;
 
   if( pass_bit && pass_kin && pass_overlap && pass_convsersion_veto && pass_crack )
   {
@@ -94,8 +102,6 @@ std::vector<int> analyzer_createobjects::electron_passID( int bitnr, Float_t ele
  //if(elelist.size()>1){for(int ii=0; ii<elelist.size(); ii++){std::cout<<"Before sort: index: "<<ii<<", Pt: "<<getElectronPt(elelist[ii], sysbinname)<<"  Eta: "<<AOD_eleEta->at(elelist[ii])<<std::endl;}}
  //if(elelist.size()>1)std::cout<<"*********************************************************************************"<<std::endl;
 
-  std::sort(elelist.begin(),elelist.end(),
-           [&]( int a, int b ) { return AOD_elePt->at(a) > AOD_elePt->at(b); });
 
   /* for (int ii = (elelist.size() - 1); ii >= 0; ii--)
    {
@@ -112,6 +118,9 @@ std::vector<int> analyzer_createobjects::electron_passID( int bitnr, Float_t ele
    //if(elelist.size()>1)std::cout<<"*********************************************************************************" <<std::endl;
    //if(elelist.size()>1){for(int ii=0; ii<elelist.size(); ii++){std::cout<<"After sort: index: "<<ii<<", Pt:  "<<getElectronPt(elelist[ii], sysbinname)<<"  Eta: "<<AOD_eleEta->at(elelist[ii])<<std::endl;}}
    //if(elelist.size()>1)std::cout<<"*********************************************************************************"<<std::endl;
+//// if(nAODEle>=5) std::cout<<std::endl;
+//// for(int i = 0 ; i<elelist.size(); i++){if(nAODEle>=5)std::cout<<"Sorted Pt: " << getElectronPt(elelist[i], sysbinname)<<std::endl;} 
+//// if(nAODEle>=5) std::cout<<std::endl;
  return elelist;
 }
 
@@ -515,33 +524,21 @@ std::vector<int> analyzer_createobjects::jet_passID( int bitnr, TString jettype,
   std::vector<int> jetlist;
 
   // set parameters based on jet collection
-  int njets;
-  if(jettype.EqualTo("calo")){
-   njets = AODnCaloJet;
-  }
-//  if(jettype.EqualTo("pf")){
-//   njets = AODnPFJet;
-//  }
-//  if(jettype.EqualTo("pfchs")){
-//   njets = AODnPFchsJet;
-//  }
-
+  int njets = AODnCaloJet;
+  bool passID;
+  float jetpt;
+  float jeteta;
+  float jetphi;
   for(int i = 0; i < njets; i++)
   {
-
-   float jetpt;
-   float jeteta;
-   float jetphi;
-   if(jettype.EqualTo("calo")){
-    jetpt  = AODCaloJetPt->at(i) ;
-    jeteta = AODCaloJetEta->at(i);
-    jetphi = AODCaloJetPhi->at(i);
-   }
+   jetpt  = AODCaloJetPt ->at(i);
+   jeteta = AODCaloJetEta->at(i);
+   jetphi = AODCaloJetPhi->at(i);
+   passID = AODCaloJetID ->at(i);
    bool pass_overlap = true;
    //check overlap with electrons
    if(electron_list.size()>0){
     for(int d=0; d<electron_list.size(); ++d){
-     //printf(" brgin looping over electrons\n");
      int eleindex = electron_list[d];
      if( dR( AOD_eleEta->at(eleindex), AOD_elePhi->at(eleindex), jeteta, jetphi ) < objcleandRcut )
      {
@@ -562,13 +559,10 @@ std::vector<int> analyzer_createobjects::jet_passID( int bitnr, TString jettype,
     }//end muons
    } // if muons
 
-   // WHAT ABOUT JET ID?
    bool pass_kin = jetpt > jetPtCut && ( fabs(jeteta) < jetEtaCut ) ;
    bool HEMFailure = false; //part of the HEM failure of 2018
    if( ( jetphi >= -1.57 && jetphi <= -0.87 ) && ( jeteta <= -1.3 && jeteta >= -3.0 ) ) HEMFailure=true;
-   //std::cout<<"Eta: "<<jeteta<<"  Phi: "<<jetphi <<" HEMFailure?: "<<HEMFailure<<std::endl;
-
-   if( pass_kin && pass_overlap/* && !HEMFailure*/ )
+   if( pass_kin && pass_overlap /*&& passID && !HEMFailure*/ )
    {
     jetlist.push_back(i);
    } // if pass_bit && pass_kin

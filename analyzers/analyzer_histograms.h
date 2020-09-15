@@ -268,20 +268,26 @@ public :
  TH1F*  h_AOD_nEle                     [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_nSelectedEle             [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_elePt                    [SELBINNAMESIZE]; //;
- TH1F*  h_AOD_elePt_subLeadEle         [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleEn                    [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleEta                   [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_elePhi                   [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_elePt            [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_eleEn            [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_eleEta           [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_elePhi           [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleCharge                [SELBINNAMESIZE]; //;
 
  // Muon
  TH1F*  h_AOD_nMu                     [SELBINNAMESIZE];
  TH1F*  h_AOD_nSelectedMu             [SELBINNAMESIZE];
  TH1F*  h_AOD_muPt                    [SELBINNAMESIZE];
- TH1F*  h_AOD_muPt_subLeadMu          [SELBINNAMESIZE];
  TH1F*  h_AOD_muEn                    [SELBINNAMESIZE];
  TH1F*  h_AOD_muEta                   [SELBINNAMESIZE];
  TH1F*  h_AOD_muPhi                   [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muPt            [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muEn            [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muEta           [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muPhi           [SELBINNAMESIZE];
  TH1F*  h_AOD_muCharge                [SELBINNAMESIZE];
  TH1F*  h_AOD_muPFdBetaIsolation      [SELBINNAMESIZE];
  
@@ -309,7 +315,7 @@ public :
  TH1F*  h_AODnGoodVtx              [SELBINNAMESIZE];
  TH1F*  h_AODnVtx                  [SELBINNAMESIZE];
  TH1F*  h_AODnTruePU               [SELBINNAMESIZE];
- //TH1F*  h_AOD0thnPU                [SELBINNAMESIZE];
+ TH1F*  h_AOD0thnPU                [SELBINNAMESIZE];
 
  // Weight
  TH2F*  h_eleReco              [SELBINNAMESIZE];
@@ -423,9 +429,9 @@ public :
  //TH2F*  h_AODCaloJet_L1PFPtVarAbsEtaVar                 [SELBINNAMESIZE][JETMULTNAMESIZE];
 
  // AODCaloJetExtraHistograms
- TH1F*  h_AODCaloJetAvfVx                          [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJetAvfVy                          [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJetAvfVz                          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ //TH1F*  h_AODCaloJetAvfVx                          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ //TH1F*  h_AODCaloJetAvfVy                          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ //TH1F*  h_AODCaloJetAvfVz                          [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAvfVertexTotalChiSquared       [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAvfVertexDegreesOfFreedom      [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAvfVertexChi2NDoF              [SELBINNAMESIZE][JETMULTNAMESIZE];
